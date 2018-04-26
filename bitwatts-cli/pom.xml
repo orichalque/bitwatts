@@ -28,7 +28,7 @@
         <dependency>
             <groupId>bitwatts</groupId>
             <artifactId>bitwatts-core</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
