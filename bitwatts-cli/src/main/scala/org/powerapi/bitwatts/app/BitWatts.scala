@@ -24,24 +24,23 @@
 package org.powerapi.bitwatts.app
 
 import java.lang.management.ManagementFactory
-import java.util.stream.Collectors
 
+import org.powerapi.bitwatts.module.virtio.VirtioModule
 import org.powerapi.bitwatts.reporter.{ThriftDisplay, VirtioDisplay}
 import org.powerapi.core.LinuxHelper
-import org.powerapi.core.target.{All, Application, Process, Target}
-import org.powerapi.module.rapl.RAPLModule
-import org.powerapi.reporter.{ConsoleDisplay, FileDisplay, JFreeChartDisplay}
-import org.powerapi.{PowerMeter, PowerMonitoring}
-import org.powerapi.bitwatts.module.virtio.VirtioModule
 import org.powerapi.core.power._
+import org.powerapi.core.target.{All, Application, Process, Target}
 import org.powerapi.module.cpu.dvfs.CpuDvfsModule
 import org.powerapi.module.cpu.simple.{ProcFSCpuSimpleModule, SigarCpuSimpleModule}
 import org.powerapi.module.libpfm.{LibpfmCoreModule, LibpfmCoreProcessModule, LibpfmHelper}
 import org.powerapi.module.powerspy.PowerSpyModule
+import org.powerapi.module.rapl.RAPLModule
+import org.powerapi.reporter.{ConsoleDisplay, FileDisplay, JFreeChartDisplay}
+import org.powerapi.{PowerMeter, PowerMonitoring}
 
+import scala.collection.JavaConverters._
 import scala.concurrent.duration.DurationInt
 import scala.sys.process.stringSeqToProcess
-import collection.JavaConverters._
 
 /**
  * BitWatts CLI.
@@ -138,7 +137,7 @@ object BitWatts extends App {
     println(str)
   }
 
-  def cliJava(options: java.util.List[java.util.Map[Symbol, Any]], duration: String, args: java.util.List[String]): (java.util.List[java.util.Map[Symbol, Any]], String) = {
+  def cliJava(options: java.util.List[java.util.Map[Symbol, Any]], duration: String, args: java.util.List[String]): java.util.List[java.util.Map[Symbol, Any]] = {
     var list: List[Map[Symbol, Any]] = List()
     for (x <- 0 to options.size()) {
       options.get(x).asScala.toMap :: list
@@ -147,8 +146,8 @@ object BitWatts extends App {
     list = list.reverse
 
     val returnValue : (List[Map[Symbol, Any]], String) = cli(list, duration, args.asScala.toList)
-    (returnValue._1.map(map => map.asJava).asJava, returnValue._2)
-
+    println(returnValue._2)
+    returnValue._1.map(map => map.asJava).asJava
   }
 
 
