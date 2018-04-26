@@ -5,7 +5,7 @@
     <artifactId>bitwatts</artifactId>
     <packaging>pom</packaging>
     <description>bitwatts</description>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>bitwatts</name>
 
     <modules>
